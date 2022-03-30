@@ -9,7 +9,6 @@ from .models import Task
 # Create your views here.
 
 @csrf_exempt
-
 def tasks(request):
     '''
     List all task snippets
@@ -18,6 +17,7 @@ def tasks(request):
         tasks = Task.objects.all()
         serializer = TaskSerializer(tasks, many=True)
         return JsonResponse(serializer.data,safe=False)
+
     elif(request.method == 'POST'):
         data = JSONParser().parse(request)
         serializer = TaskSerializer(data=data)
@@ -27,12 +27,12 @@ def tasks(request):
         return JsonResponse(serializer.errors, status=400)
 
 @csrf_exempt
-
 def task_detail(request, pk):
     try:
         task = Task.objects.get(pk=pk)
     except:
         return HttpResponse(status=404)
+
     if(request.method == 'PUT'):
         data = JSONParser().parse(request)
         serializer = TaskSerializer(task, data=data)
@@ -40,6 +40,7 @@ def task_detail(request, pk):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+        
     elif(request.method == 'DELETE'):
             task.delete()
             return HttpResponse(status=204)
