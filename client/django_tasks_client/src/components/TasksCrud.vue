@@ -1,20 +1,20 @@
 <template>
   <div class="container">
     <!-- breakpoint -->
-    <h1>Tareas</h1>
+    <h1 id="h-title">Tareas</h1>
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <div v-for="task in tasks" :key="task.id">
         <div class="col">
-          <div class="card m-3">
+          <div class="card text-white bg-dark m-3">
             <div class="card-body">
               <h4 class="card-title d-flex justify-content-center">
                 {{ task.title }}
               </h4>
               <p class="card-text">{{ task.description }}</p>
-              <button @click="toggleTask(task)">
-                {{ task.completed ? "Undo" : "Complete" }}
+              <button class="btn btn-success" @click="toggleTask(task)">
+                {{ task.completed ? "Incompleta" : "Completa" }}
               </button>
-              <button @click="deleteTask(task)">Eliminar</button>
+              <button class="btn btn-danger m-1" @click="deleteTask(task)">Eliminar</button>
             </div>
           </div>
         </div>
@@ -122,7 +122,8 @@ export default {
 </script>
 
 <style>
-.navbar-light {
-  color: #111626;
-}
+  #h-title{
+    color: azure;
+    padding-top: 20px;
+  }
 </style>
