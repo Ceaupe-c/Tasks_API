@@ -8,30 +8,30 @@ from .models import Task
 
 # Create your views here.
 
-@csrf_exempt
+@csrf_exempt #Excepcion para funciones basadas en vistas
 def tasks(request):
     '''
     List all task snippets
     '''
     if(request.method == 'GET'):
-        tasks = Task.objects.all()
-        serializer = TaskSerializer(tasks, many=True)
-        return JsonResponse(serializer.data,safe=False)
+        tasks = Task.objects.all() #Obtencion de todas las tareas
+        serializer = TaskSerializer(tasks, many=True) # Serializado de los datos de las tareas
+        return JsonResponse(serializer.data,safe=False) #Retorno de un JsonResponse
 
     elif(request.method == 'POST'):
-        data = JSONParser().parse(request)
-        serializer = TaskSerializer(data=data)
-        if(serializer.is_valid()):
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+        data = JSONParser().parse(request) #Deserializacion de la data 
+        serializer = TaskSerializer(data=data) #Instancia
+        if(serializer.is_valid()): #Validacion de la informacion
+            serializer.save() #Si es correcto, almacena en la DB
+            return JsonResponse(serializer.data, status=201) #Si es correcto devuelve un Json con la info guardada
+        return JsonResponse(serializer.errors, status=400) #Si es incorrecto devuelve un Json con la info del error
 
 @csrf_exempt
 def task_detail(request, pk):
     try:
-        task = Task.objects.get(pk=pk)
+        task = Task.objects.get(pk=pk) #Obtencion de la tarea validando el id
     except:
-        return HttpResponse(status=404)
+        return HttpResponse(status=404) 
 
     if(request.method == 'PUT'):
         data = JSONParser().parse(request)
@@ -43,4 +43,4 @@ def task_detail(request, pk):
         
     elif(request.method == 'DELETE'):
             task.delete()
-            return HttpResponse(status=204)
+            return HttpResponse(status=204) 

@@ -1,18 +1,11 @@
 <template>
-  <div id="app">
-    <TasksCrud />
-  </div>
+    <router-view />
 </template>
 
 <script>
-
-import TasksCrud from './components/TasksCrud.vue'
-
 export default {
-  name: 'App',
-  components: {
-    TasksCrud,
-  },
+  name: "App",
+  components: {},
 };
 </script>
 
@@ -22,7 +15,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  background-color: #5E5F76;
+  color: #ffffff;
+  background-color: #5e5f76;
 }
 </style>
